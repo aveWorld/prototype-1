@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
+.header > span {
+  margin-right: 8px;
+}

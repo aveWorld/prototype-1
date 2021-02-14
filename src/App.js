@@ -13,12 +13,12 @@ import Login from './pages/Login/Login';
 
 function App() {
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/login" component={() => <Login />} />
-        <PrivateRoute exact path="/" component={Home} />
-      </Switch>
-    </Layout>
+    <Switch>
+      <Route exact path="/login" component={() => <Login />} />
+        <Layout>
+          <PrivateRoute exact path="/" component={Home} />
+        </Layout>
+    </Switch>
   );
 }
 

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
   const [error, setError] = useState(false);
-  const responseSuccess = () => {
-    localStorage.setItem('auth', 'true');
-    return <Redirect to={{ pathname: '/' }} />;
+  const history = useHistory();
+  const responseSuccess = (response) => {
+    localStorage.setItem('authName', response.profileObj.givenName);
+    history.push('/');
   };
 
   const responseFailure = (response) => {
@@ -14,7 +15,8 @@ export default function Login() {
     setError(true);
   };
   return (
-    <div>
+    <div className="login-page">
+      <h1 className="login__title">LogIn</h1>
       <GoogleLogin
         clientId={process.env.REACT_APP_CLIENT_ID}
         buttonText="Login"

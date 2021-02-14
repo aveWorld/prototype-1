@@ -1,5 +1,13 @@
+// Variables
+@import 'utils/vars';
+@import 'utils/general';
+
+//Components
+@import 'components/header';
+
 // Layout
 @import 'layout/layout';
 
 // Pages
 @import 'pages/main';
+@import 'pages/login';

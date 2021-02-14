@@ -61,6 +61,7 @@
     "consistent-return": "off",
     "no-param-reassign": "off",
     "no-console": "off",
+    "implicit-arrow-linebreak": "off",
     "react/jsx-one-expression-per-line": "off"
   }
 }
