@@ -9,7 +9,8 @@ export default function Login() {
     return <Redirect to={{ pathname: '/' }} />;
   };
 
-  const responseFailure = () => {
+  const responseFailure = (response) => {
+    console.log(response);
     setError(true);
   };
   return (
@@ -19,6 +20,7 @@ export default function Login() {
         buttonText="Login"
         onSuccess={responseSuccess}
         onFailure={responseFailure}
+        isSignedIn={false}
         cookiePolicy="single_host_origin"
       />
       {error ? <div>Login Error, please try again</div> : null}
