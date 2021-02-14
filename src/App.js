@@ -5,6 +5,7 @@ import './styles/Main.scss';
 
 // Components
 import Layout from './components/Layout/Layout';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 // Pages
 import Home from './pages/Home/Home';
@@ -14,8 +15,8 @@ function App() {
   return (
     <Layout>
       <Switch>
-        <Route exact path="/" component={() => <Home />} />
         <Route exact path="/login" component={() => <Login />} />
+        <PrivateRoute exact path="/" component={Home} />
       </Switch>
     </Layout>
   );
