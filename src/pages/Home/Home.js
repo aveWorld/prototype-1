@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import { Dropdown, Nav } from 'react-bootstrap';
 
 export default function Home() {
-  const initialState = { maxPrice: '', maxSpeed: '', strategy: '' };
+  const initialState = { maxPrice: 'Max Price', maxSpeed: 'Max Speed', strategy: 'Strategy' };
   const [blockData, setBlockData] = useState(initialState);
   const [tabsData, setTabsData] = useState('Orders');
   const [fieldError, setFieldError] = useState(false);
@@ -68,7 +68,7 @@ export default function Home() {
           <div className="form__block">
             <Dropdown onSelect={(_, event) => handleField(event, 'maxPrice')}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Max Price
+                {blockData.maxPrice}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
@@ -81,7 +81,7 @@ export default function Home() {
             )}
             <Dropdown onSelect={(_, event) => handleField(event, 'maxSpeed')}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Max Speed
+                {blockData.maxSpeed}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
@@ -94,7 +94,7 @@ export default function Home() {
             )}
             <Dropdown onSelect={(_, event) => handleField(event, 'strategy')}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Max Speed
+                {blockData.strategy}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
