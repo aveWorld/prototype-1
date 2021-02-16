@@ -1,33 +1,22 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 
+// Styles
+import { Dropdown, Nav } from 'react-bootstrap';
+
 export default function Home() {
-  const initialState = { name: '', description: '', fileName: '', fileBuffer: '' };
+  const initialState = { maxPrice: '', maxSpeed: '', strategy: '' };
   const [blockData, setBlockData] = useState(initialState);
+  const [tabsData, setTabsData] = useState('Orders');
   const [fieldError, setFieldError] = useState(false);
   const [formData, setFormData] = useState([]);
 
-  const handleText = (e, value) => {
-    const currentValue = e.currentTarget.value;
+  const handleField = (event, fieldName) => {
+    const currentValue = event.currentTarget.innerText;
     setBlockData((prev) => {
-      prev[value] = currentValue;
+      prev[fieldName] = currentValue;
       return { ...prev };
     });
-  };
-
-  const handleFileChange = async (e) => {
-    try {
-      const currentFile = e.currentTarget.files[0];
-      const currentFileName = currentFile.name;
-      const currentFileBuffer = await toBase64(currentFile);
-      setBlockData((prev) => {
-        prev.fileName = currentFileName;
-        prev.fileBuffer = currentFileBuffer;
-        return { ...prev };
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const addRow = () => {
@@ -44,74 +33,83 @@ export default function Home() {
     setFormData((prev) => [...prev.slice(0, index), ...prev.slice(index + 1)]);
   };
 
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
-  const submitData = () => {
-    if (formData.length > 0) {
-      alert('submitted');
-      console.log(formData);
-    } else {
-      alert('empty form');
-    }
-  };
-
   return (
     <main className="container main-page">
-      <div className="form">
-        {formData.map((item, index) => (
-          <div className="form__item" key={nanoid()}>
-            <span>name : {item.name}</span>
-            <span>description : {item.description}</span>
-            <span>file : {item.fileName}</span>
-            <button type="button" onClick={() => removeRow(index)} className="form__submit-btn">
-              delete
-            </button>
-          </div>
-        ))}
-        <div className="form__block">
-          <label htmlFor="name" className="form__label">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            onChange={(e) => handleText(e, 'name')}
-            value={blockData.name}
-            className="form__input"
-          />
-          {fieldError && !blockData.name.length && <span className="error-span">Required</span>}
-          <label htmlFor="description" className="form__label">
-            Description
-          </label>
-          <textarea
-            name="description"
-            rows="8"
-            onChange={(e) => handleText(e, 'description')}
-            value={blockData.description}
-            className="form__input"
-          />
-          {fieldError && !blockData.description.length && (
-            <span className="error-span">Required</span>
-          )}
-          <label htmlFor="file" className="form__label">
-            File
-          </label>
-          <input type="file" name="file" onChange={handleFileChange} className="form__input" />
-          {fieldError && !blockData.fileName.length && <span className="error-span">Required</span>}
-          <button onClick={addRow} type="button" className="form__submit-btn">
-            add row
+      <Nav
+        variant="tabs"
+        defaultActiveKey="orders"
+        onSelect={(_, event) => setTabsData(event.currentTarget.innerText)}
+      >
+        <Nav.Item>
+          <Nav.Link eventKey="orders">Orders</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="factors">Factors</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="strategy">Strategy</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      {tabsData === 'Orders' ? (
+        <div className="form">
+          {formData.map((item, index) => (
+            <div className="form__item" key={nanoid()}>
+              <span>Max Price : {item.maxPrice}</span>
+              <span>Max Speed : {item.maxSpeed}</span>
+              <span>Strategy : {item.strategy}</span>
+              <button type="button" onClick={() => removeRow(index)} className="btn btn-danger">
+                delete
+              </button>
+            </div>
+          ))}
+          <button onClick={addRow} type="button" className="btn btn-primary add-row__btn">
+            Create Order
           </button>
+          <div className="form__block">
+            <Dropdown onSelect={(_, event) => handleField(event, 'maxPrice')}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Max Price
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>1</Dropdown.Item>
+                <Dropdown.Item>2</Dropdown.Item>
+                <Dropdown.Item>3</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            {fieldError && !blockData.maxPrice.length && (
+              <span className="error-span ">Required</span>
+            )}
+            <Dropdown onSelect={(_, event) => handleField(event, 'maxSpeed')}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Max Speed
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>1</Dropdown.Item>
+                <Dropdown.Item>2</Dropdown.Item>
+                <Dropdown.Item>3</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            {fieldError && !blockData.maxSpeed.length && (
+              <span className="error-span">Required</span>
+            )}
+            <Dropdown onSelect={(_, event) => handleField(event, 'strategy')}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Max Speed
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item>1</Dropdown.Item>
+                <Dropdown.Item>2</Dropdown.Item>
+                <Dropdown.Item>3</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            {fieldError && !blockData.strategy.length && (
+              <span className="error-span">Required</span>
+            )}
+          </div>
         </div>
-        <button onClick={submitData} type="button" className="form__submit-btn submit__btn">
-          Submit Data
-        </button>
-      </div>
+      ) : (
+        <div>empty here</div>
+      )}
     </main>
   );
 }
