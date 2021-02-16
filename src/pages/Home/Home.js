@@ -67,9 +67,7 @@ export default function Home() {
           </button>
           <div className="form__block">
             <Dropdown onSelect={(_, event) => handleField(event, 'maxPrice')}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {blockData.maxPrice}
-              </Dropdown.Toggle>
+              <Dropdown.Toggle id="dropdown-basic">{blockData.maxPrice}</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
                 <Dropdown.Item>2</Dropdown.Item>
@@ -80,9 +78,7 @@ export default function Home() {
               <span className="error-span ">Required</span>
             )}
             <Dropdown onSelect={(_, event) => handleField(event, 'maxSpeed')}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {blockData.maxSpeed}
-              </Dropdown.Toggle>
+              <Dropdown.Toggle id="dropdown-basic">{blockData.maxSpeed}</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
                 <Dropdown.Item>2</Dropdown.Item>
@@ -93,9 +89,7 @@ export default function Home() {
               <span className="error-span">Required</span>
             )}
             <Dropdown onSelect={(_, event) => handleField(event, 'strategy')}>
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {blockData.strategy}
-              </Dropdown.Toggle>
+              <Dropdown.Toggle id="dropdown-basic">{blockData.strategy}</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>1</Dropdown.Item>
                 <Dropdown.Item>2</Dropdown.Item>
